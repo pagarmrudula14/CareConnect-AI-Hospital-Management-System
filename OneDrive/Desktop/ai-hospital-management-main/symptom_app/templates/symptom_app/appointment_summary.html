@@ -1,0 +1,33 @@
+
+
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Appointment Summary</title>
+    <link rel="stylesheet" href="{% static 'symptom_app/appointment.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <h2>Appointment Summary</h2>
+
+<p><strong>Patient:</strong> {{ appointment.user.username }}</p>
+<p><strong>Doctor:</strong>  {{ appointment.doctor.name }}</p>
+<p><strong>Specialization:</strong> {{ appointment.doctor.specialization }}</p>
+<p><strong>Hospital:</strong> {{ appointment.doctor.hospital.name }}</p>
+<p><strong>Date:</strong> {{ appointment.date }}</p>
+<p><strong>Time:</strong> {{ appointment.time }}</p>
+
+<br>
+
+<a href="{% url 'appointment_success' %}">
+    <button>Confirm Appointment</button>
+</a>
+
+    
+</div>
+
+</body>
+</html>

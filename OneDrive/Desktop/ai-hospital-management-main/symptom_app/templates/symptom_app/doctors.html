@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Doctor</title>
+    <link rel="stylesheet" href="{% static 'symptom_app/style.css' %}">
+</head>
+<body>
+
+<h1 class="page-title">Select Doctor</h1>
+
+{% if doctors %}
+<div class="hospital-container">
+    {% for doctor in doctors %}
+    <div class="hospital-card">
+        <div class="hospital-name">{{ doctor.name }}</div>
+        <div class="hospital-location">
+            🩺 {{ doctor.specialization }}
+        </div>
+
+        <a href="{% url 'appointment' %}?doctor={{ doctor.id }}" class="select-btn">
+            Book Appointment
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p class="empty-message">No doctors available for this hospital</p>
+{% endif %}
+
+</body>
+</html>

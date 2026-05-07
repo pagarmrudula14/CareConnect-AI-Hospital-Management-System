@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Disease Result</title>
+    <link rel="stylesheet" href="{% static 'symptom_app/style.css' %}">
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Prediction Result</h2>
+
+    {% if disease %}
+        <p><strong>Predicted Disease:</strong></p>
+        <h3 style="color:#ff4d6d;">{{ disease }}</h3>
+
+        <a href="/hospitals/">
+            <button>Find Hospitals</button>
+        </a>
+    {% else %}
+        <p>No disease detected.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>

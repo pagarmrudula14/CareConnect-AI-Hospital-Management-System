@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Appointment</title>
+    <link rel="stylesheet" href="{% static 'symptom_app/appointment.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <h2>Book Appointment</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Date</label>
+        <input type="date" name="date" required>
+
+        <label>Time</label>
+        <input type="time" name="time" required>
+
+        <button type="submit">Confirm Appointment</button>
+    </form>
+</div>
+
+</body>
+</html>

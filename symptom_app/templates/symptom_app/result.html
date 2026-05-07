@@ -1,0 +1,35 @@
+{% extends 'symptom_app/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="form-container">
+    <h2>Prediction Result</h2>
+
+    {% if disease %}
+        <p><strong>Predicted Disease:</strong></p>
+        <h3 style="color:#ff4d6d;">{{ disease }}</h3>
+
+        <a href="/hospitals/">
+            <button>Find Hospitals</button>
+        </a>
+    {% else %}
+        <p>No disease detected.</p>
+    {% endif %}
+
+    <hr>
+
+    {% if api_response %}
+        <h3>AI Response</h3>
+        <pre style="text-align:left;">{{ api_response }}</pre>
+    {% else %}
+        <p>No API data received.</p>
+    {% endif %}
+
+    <p style="color:red; margin-top:15px;">
+        ⚠ This is not a medical diagnosis.
+    </p>
+</div>
+
+{% endblock %}
+

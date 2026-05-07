@@ -1,0 +1,26 @@
+{% extends 'symptom_app/base.html' %}
+{% block content %}
+
+<h2>My Appointments</h2>
+
+<h3>🔜 &nbsp;Upcoming Appointments</h3>
+{% for a in upcoming_appointments %}
+    <div style="padding:10px; border-bottom:1px solid #ccc">
+        <strong>{{ a.doctor }}</strong><br>
+        {{ a.date }} at {{ a.time }}
+    </div>
+{% empty %}
+    <p> &nbsp; No upcoming appointments</p>
+{% endfor %}
+<hr><hr>&nbsp;
+<h3>✅ &nbsp;Past Appointments</h3>
+{% for a in past_appointments %}
+    <div style="padding:10px; border-bottom:1px solid #ccc">
+        <strong>{{ a.doctor }}</strong><br>
+        {{ a.date }} at {{ a.time }}
+    </div>
+{% empty %}
+    <p>No past appointments</p>
+{% endfor %}
+
+{% endblock %}

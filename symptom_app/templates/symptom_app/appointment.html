@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Appointment</title>
+    <link rel="stylesheet" href="{% static 'symptom_app/appointment.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <h2>Book Appointment</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- DATE -->
+        <label>Date</label>
+        <input type="date"
+               name="date"
+               id="dateInput"
+               min="{{ today }}"
+               required>
+
+        <!-- TIME -->
+        <label>Time</label>
+        <input type="time"
+               name="time"
+               id="timeInput"
+               required>
+
+        <button type="submit">Confirm Appointment</button>
+    </form>
+</div>
+
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const dateInput = document.getElementById("dateInput");
+    const timeInput = document.getElementById("timeInput");
+
+    if (!dateInput || !timeInput) return;
+
+    // TODAY DATE
+    const today = new Date().toISOString().split("T")[0];
+
+    // BLOCK PAST DATES
+    dateInput.setAttribute("min", today);
+
+    function updateTimeRestriction() {
+        const selectedDate = dateInput.value;
+        const now = new Date();
+        const todayDate = now.toISOString().split("T")[0];
+
+        if (selectedDate === todayDate) {
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            timeInput.min = `${hours}:${minutes}`;
+        } else {
+            timeInput.min = "00:00";
+        }
+    }
+
+    // RUN ON LOAD
+    updateTimeRestriction();
+
+    // RUN ON CHANGE
+    dateInput.addEventListener("change", updateTimeRestriction);
+
+});
+</script>

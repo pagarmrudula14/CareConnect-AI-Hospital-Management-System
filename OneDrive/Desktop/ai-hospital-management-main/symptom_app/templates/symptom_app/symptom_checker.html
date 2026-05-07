@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Symptom Checker</title>
+    <link rel="stylesheet" href="{% static 'symptom_app/style.css' %}">
+</head>
+<body>
+
+<div class="form-container">
+    <h2>AI Symptom Checker</h2>
+
+   <form action="{% url 'result' %}" method="POST">
+    {% csrf_token %}
+
+        <textarea name="symptoms" rows="5"
+            placeholder="Enter your symptoms (e.g. fever, cough, headache)"
+            required></textarea>
+
+        <button type="submit">Check Disease</button>
+    </form>
+</div>
+
+</body>
+</html>

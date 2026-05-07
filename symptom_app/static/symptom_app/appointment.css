@@ -1,0 +1,73 @@
+/* TEST COLOR – REMOVE LATER */
+body {
+    background: #f4f6fb;
+    font-family: Arial, sans-serif;
+}
+
+/* MAIN CARD */
+.container {
+    width: 400px;
+    margin: 60px auto;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* TITLE */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* LABELS */
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+/* INPUTS */
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* BUTTON */
+button {
+    width: 100%;
+    margin-top: 25px;
+    padding: 12px;
+    background: #ff4d6d;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #ff4d6d;
+}
+
+/* SUMMARY BOX */
+.summary {
+    background: #e0f2fe;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+/* SUCCESS */
+.success {
+    text-align: center;
+    padding: 40px;
+}
+
+.success h1 {
+    color: green;
+}

@@ -1,0 +1,107 @@
+{% extends 'symptom_app/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="form-container">
+    <h2>AI Symptom Checker</h2>
+
+    <p id="errorMessage" class="error-message" style="display:none;"></p>
+
+    <form id="symptomForm" method="POST">
+        {% csrf_token %}
+
+        <label for="symptoms">Enter your symptoms</label>
+
+        <textarea
+            id="symptoms"
+            name="symptoms"
+            rows="4"
+            placeholder="Example: fever, cough, headache"
+            required></textarea>
+
+        <button type="submit">Check Health</button>
+    </form>
+
+    <!-- RESULT UI -->
+    <div id="resultBox" style="margin-top:25px; display:none;">
+        <h3>Health Analysis</h3>
+
+        <div id="condition" class="result-section"></div>
+        <div id="remedies" class="result-section"></div>
+        <div id="doctor" class="result-section"></div>
+        <div id="disclaimer" class="result-section" style="color:red;"></div>
+
+        <!-- ✅ BUTTON ADDED HERE (FIXED) -->
+        <button id="hospitalBtn" style="display:none; margin-top:10px;">
+            Go to Hospitals
+        </button>
+    </div>
+</div>
+
+<!-- ✅ SCRIPT -->
+<script>
+document.getElementById("symptomForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const resultBox = document.getElementById("resultBox");
+    const errorMessage = document.getElementById("errorMessage");
+
+    const condition = document.getElementById("condition");
+    const remedies = document.getElementById("remedies");
+    const doctor = document.getElementById("doctor");
+    const disclaimer = document.getElementById("disclaimer");
+
+    const hospitalBtn = document.getElementById("hospitalBtn");
+
+    resultBox.style.display = "block";
+    errorMessage.style.display = "none";
+
+    condition.innerHTML = "Analyzing...";
+    remedies.innerHTML = "";
+    doctor.innerHTML = "";
+    disclaimer.innerHTML = "";
+
+    hospitalBtn.style.display = "none"; // reset button
+
+    fetch("{% url 'symptom_checker' %}", {
+        method: "POST",
+        body: new FormData(this),
+        headers: {
+            "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
+        }
+    })
+    .then(response => {
+        if (!response.ok) throw new Error("Server error");
+        return response.json();
+    })
+    .then(data => {
+
+        let text = data.result;
+
+        let parts = text.split("\n\n");
+
+        condition.innerHTML = "<strong>" + (parts[0] || "") + "</strong>";
+        remedies.innerHTML = parts[1] || "";
+        doctor.innerHTML = parts[2] || "";
+        disclaimer.innerHTML = parts[3] || "";
+
+        // ✅ SHOW BUTTON AFTER RESULT
+        if (data.result) {
+            hospitalBtn.style.display = "block";
+        }
+    })
+    .catch(() => {
+        errorMessage.style.display = "block";
+        errorMessage.innerText = "Server busy. Try again.";
+        resultBox.style.display = "none";
+    });
+});
+
+// ✅ BUTTON REDIRECT
+document.getElementById("hospitalBtn").onclick = function () {
+    window.location.href = "/hospitals/";
+};
+</script>
+
+{% endblock %}

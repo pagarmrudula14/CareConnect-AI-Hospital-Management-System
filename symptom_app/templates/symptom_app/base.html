@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HealthAI</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'symptom_app/style.css' %}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-left">
+        <a href="{% url 'home' %}" class="logo">💖 HealthAI</a>
+        <a href="{% url 'home' %}" class="nav-link">Home</a>
+        <a href="{% url 'hospitals' %}" class="nav-link">Hospitals</a>
+    </div>
+
+    <div class="nav-right">
+        {% if user.is_authenticated %}
+        <div class="profile-container">
+            <span class="profile-icon">👤</span>
+
+            <div class="dropdown-menu">
+                <strong class="dropdown-user">
+                    &nbsp; User -   {{ user.username }}
+                </strong>
+
+                <hr>
+
+         
+
+                <a class="dropdown-link"
+                   href="{% url 'appointment_list' %}">
+                    View All Appointments
+                </a>
+
+                <hr>
+
+                <a class="dropdown-link logout"
+                   href="{% url 'logout' %}">
+                    Logout
+                </a>
+            </div>
+        </div>
+        {% else %}
+            <a href="{% url 'login' %}" class="nav-link">Login</a>
+            <a href="{% url 'signup' %}" class="nav-link">Signup</a>
+        {% endif %}
+    </div>
+</nav>
+
+<!-- PAGE CONTENT -->
+<main class="page-content">
+    {% block content %}
+    {% endblock %}
+</main>
+
+</body>
+</html>
+
+
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const profileIcon = document.querySelector('.profile-icon');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+
+    // Toggle dropdown on icon click
+    profileIcon.addEventListener('click', function (e) {
+        e.stopPropagation(); // prevent immediate closing
+        dropdownMenu.classList.toggle('show');
+    });
+
+    // Close dropdown if clicked outside
+    document.addEventListener('click', function (e) {
+        if (!dropdownMenu.contains(e.target) && !profileIcon.contains(e.target)) {
+            dropdownMenu.classList.remove('show');
+        }
+    });
+});
+</script>
+
+
+</body>
+</html>
